@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken"
-import {JWT_SECRET} from "../confige.js"
+import {JWT_SECRET} from "../config.js"
 
 
 const authenticationToken = (req , res , next) =>{

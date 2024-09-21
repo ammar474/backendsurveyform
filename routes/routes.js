@@ -1,7 +1,7 @@
 import express from "express";
 import jwt from "jsonwebtoken";
 import authenticationToken from "../middleware/middleWare.js";
-import { JWT_SECRET } from "../confige.js";
+import { JWT_SECRET } from "../config.js";
 import { ClientSurvey } from "../models/clientSurvyForm.js";
 import { TenantSurvey } from "../models/tenantSurvey.js";
 

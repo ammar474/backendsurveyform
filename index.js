@@ -2,7 +2,7 @@ import mongoose from "mongoose"
 import express from "express"
 import cors from "cors";
 import formRouter from "./routes/routes.js";
-import {PORT , mongodbUrl} from "./confige.js"
+import {PORT , mongodbUrl} from "./config.js"
 
 
 
