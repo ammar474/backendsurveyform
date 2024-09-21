@@ -1,6 +1,6 @@
 import mongoose  from "mongoose";
 
-const FeedbackSchema2 =   mongoose.Schema({
+const TenantSurveyScehma =   mongoose.Schema({
     completedAsRequested: Boolean,
     completedOnTime: Boolean,
     knowledgeableTechnician: Boolean,
@@ -10,10 +10,10 @@ const FeedbackSchema2 =   mongoose.Schema({
     rating: Number,
     issueDescription: String,
     changesSuggested: String,
-    Name: String,
-    Email: String
+    name: String,
+    email: String
 
 
 })
 
-export const TenantSurvey = mongoose.model('TenantSurvey' ,  FeedbackSchema2);
+export const TenantSurvey = mongoose.model('TenantSurvey' , TenantSurveyScehma);

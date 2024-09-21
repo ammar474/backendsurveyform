@@ -1,6 +1,6 @@
 import mongoose  from "mongoose";
 
-const FeedbackSchema1 = mongoose.Schema({
+const ClientSurveySchema = mongoose.Schema({
     companyName: String,
     servicesGiven: String,
     date: String,
@@ -14,9 +14,9 @@ const FeedbackSchema1 = mongoose.Schema({
     issueDescription: String,
     changesSuggested: String,
      name: String,
-     nmail: String
+     email: String
 
 
 })
 
-export const  ClientSurvey   = mongoose.model('ClientSurvey' ,  FeedbackSchema1);
+export const  ClientSurvey   = mongoose.model('ClientSurvey' ,  ClientSurveySchema);

@@ -94,8 +94,8 @@ formRouter.post("/tenantsurvey", async (req, res) => {
          name,
          email,
       }
-      const feedbackData2 = new TenantSurvey(newtenantData);
-      await feedbackData2.save();
+      const addTenantSurveyData = new TenantSurvey(newtenantData);
+      await addTenantSurveyData .save();
       res.status(200).send('Feedback submitted successfully');
    } catch (error) {
       res.status(500).send({message : error.message});
@@ -145,5 +145,6 @@ formRouter.get("/getdetails/:id",  authenticationToken , async (req, res) => {
       return res.status(500).send({ message: error.message });
    }
 });
+
 
 export default formRouter; 
