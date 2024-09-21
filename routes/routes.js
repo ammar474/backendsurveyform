@@ -10,10 +10,10 @@ const formRouter = express.Router();
 formRouter.post("/login", async (req, res) => {
 
    const { email, password } = req.body
-   if (!email || !password) {
+   if (!email && !password) {
       return res.status(401).send({ message: "please fill the field" });
    }
-   if (email == "xyz@gmail.com" || password == "abc") {
+   if (email == "xyz@gmail.com" && password == "abc") {
       const token = jwt.sign({}, JWT_SECRET, { expiresIn: '1h' });
       console.log(token);
       return res.status(201).send({ message: "login succesful", token: token });
@@ -137,8 +137,8 @@ formRouter.get("/getdetails/:id",  authenticationToken , async (req, res) => {
       const { id } = req.params
       const getClientSurveyById = await ClientSurvey.findById(id);
       const getTenantSurveyById = await TenantSurvey.findById(id);
-      if (getClientSurveyById) { return res.status(200).send({ data: getClientSurveyById })}
-      else if (getTenantSurveyById) { return res.status(200).send({ data: getTenantSurveyById })}
+      if (getClientSurveyById) { return res.status(200).send({ clientSurveyData: getClientSurveyById })}
+      else if (getTenantSurveyById) { return res.status(200).send({tenantSurveydata: getTenantSurveyById })}
       else { return res.status(402).send({ message: "data not found" }) }
    }
    catch (error) {
