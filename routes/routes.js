@@ -66,14 +66,41 @@ formRouter.post("/clientsurvey", async (req, res) => {
 });
 
 formRouter.post("/tenantsurvey", async (req, res) => {
+
+     const {
+      completedAsRequested,
+      completedOnTime,
+      knowledgeableTechnician,
+      politeTechnician,
+      unfinishedWork,
+      cleanedUp,
+      rating,
+      issueDescription,
+      changesSuggested,
+      name,
+      email
+     } = req.body
    try {
-      const feedbackData2 = new TenantSurvey(req.body);
+      const newtenantData ={
+         completedAsRequested,
+         completedOnTime,
+         knowledgeableTechnician,
+         politeTechnician,
+         unfinishedWork,
+         cleanedUp,
+         rating,
+         issueDescription,
+         changesSuggested,
+         name,
+         email,
+      }
+      const feedbackData2 = new TenantSurvey(newtenantData);
       await feedbackData2.save();
       res.status(200).send('Feedback submitted successfully');
    } catch (error) {
-      res.status(500).send('Error submitting feedback');
+      res.status(500).send({message : error.message});
    }
-   console.log(req.body);
+  
 
 });
 
