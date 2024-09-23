@@ -95,7 +95,7 @@ formRouter.post("/TenanTsurvey", async (req, res) => {
          email,
       }
       const addTenantSurveyData = new TenantSurvey(newtenantData);
-      await addTenantSurveyData .save();
+      await addTenantSurveyData.save();
       res.status(200).send('Feedback submitted successfully');
    } catch (error) {
       res.status(500).send({message : error.message});
@@ -155,7 +155,7 @@ formRouter.get("/ItemsClientSurvey" , authenticationToken ,  async (req , res ) 
 
          try {
               const query = searchQuery ? {name : { $regex: searchQuery, $options: 'i' }} : {};
-               const items = await ClientSurvey.find(query).skip(skip).limit(limit);
+               const items = await ClientSurvey.find(query , { name : 1 , email: 1 , rating : 1 , created_at : 1 , companyName : 1  }).skip(skip).limit(limit);
                const total = await ClientSurvey.countDocuments(query);
                if(items){ return  res.status(201).send({items,total,})} 
                 else{
@@ -176,9 +176,9 @@ formRouter.get("/ItemsTenantSurvey" , authenticationToken , async (req , res ) =
 
    try {
          const query = searchQuery ? {name : { $regex: searchQuery, $options: 'i' }} : {};
-         const items = await TenantSurvey.find(query).skip(skip).limit(limit);
+         const items = await TenantSurvey.find(query , { name : 1 , email: 1 , rating : 1 , created_at : 1  }).skip(skip).limit(limit);
          const total = await TenantSurvey.countDocuments(query);
-         if(items){ return  res.status(201).send({items,total,})} 
+         if(items){ return  res.status(201).send({items,total})} 
           else{
             return res.status(401).send({message : "items not found"});
           }
@@ -188,4 +188,6 @@ formRouter.get("/ItemsTenantSurvey" , authenticationToken , async (req , res ) =
    }  
 });
 
+
 export default formRouter; 
+

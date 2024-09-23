@@ -11,7 +11,11 @@ const TenantSurveyScehma =   mongoose.Schema({
     issueDescription: String,
     changesSuggested: String,
     name: String,
-    email: String
+    email: String,
+     created_at : {
+        type : Date,
+        default:Date.now
+     }
 
 
 })
