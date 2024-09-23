@@ -22,7 +22,7 @@ formRouter.post("/login", async (req, res) => {
    }
 });
 
-formRouter.post("/clientsurvey", async (req, res) => {
+formRouter.post("/ClientSurvey", async (req, res) => {
    const {
       companyName,
       servicesGiven,
@@ -65,7 +65,7 @@ formRouter.post("/clientsurvey", async (req, res) => {
    console.log(req.body);
 });
 
-formRouter.post("/tenantsurvey", async (req, res) => {
+formRouter.post("/TenanTsurvey", async (req, res) => {
 
      const {
       completedAsRequested,
@@ -104,7 +104,7 @@ formRouter.post("/tenantsurvey", async (req, res) => {
 
 });
 
-formRouter.get("/getdataclientsurvey", authenticationToken, async (req, res) => {
+formRouter.get("/GetDataClientSurvey", authenticationToken, async (req, res) => {
 
    try {
      
@@ -118,7 +118,7 @@ formRouter.get("/getdataclientsurvey", authenticationToken, async (req, res) => 
    }
 });
 
-formRouter.get("/getdatatenantsurvey", authenticationToken, async (req, res) => {
+formRouter.get("/GetDataTenantSurvey", authenticationToken, async (req, res) => {
 
    try {
       const tenantData = await TenantSurvey.find();
@@ -132,7 +132,7 @@ formRouter.get("/getdatatenantsurvey", authenticationToken, async (req, res) => 
    }
 });
 
-formRouter.get("/getdetails/:id",  authenticationToken , async (req, res) => {
+formRouter.get("/GetDetails/:id",  authenticationToken , async (req, res) => {
    try {
       const { id } = req.params
       const getClientSurveyById = await ClientSurvey.findById(id);
@@ -146,5 +146,46 @@ formRouter.get("/getdetails/:id",  authenticationToken , async (req, res) => {
    }
 });
 
+formRouter.get("/ItemsClientSurvey" , authenticationToken ,  async (req , res ) => {
+      
+         const page  = req.query.page;
+         const limit = req.query.limit;
+         const skip = (page - 1) * limit;
+         const searchQuery = req.query.name ;
+
+         try {
+              const query = searchQuery ? {name : { $regex: searchQuery, $options: 'i' }} : {};
+               const items = await ClientSurvey.find(query).skip(skip).limit(limit);
+               const total = await ClientSurvey.countDocuments(query);
+               if(items){ return  res.status(201).send({items,total,})} 
+                else{
+                  return res.status(401).send({message : "items not found"});
+                }
+         } catch (error) {
+            console.log(error);
+            return res.status(500).send({message : error.message});
+         }  
+});
+
+formRouter.get("/ItemsTenantSurvey" , authenticationToken , async (req , res ) => {
+      
+   const page  = req.query.page;
+   const limit = req.query.limit;
+   const skip = (page - 1) * limit;
+   const searchQuery = req.query.name;
+
+   try {
+         const query = searchQuery ? {name : { $regex: searchQuery, $options: 'i' }} : {};
+         const items = await TenantSurvey.find(query).skip(skip).limit(limit);
+         const total = await TenantSurvey.countDocuments(query);
+         if(items){ return  res.status(201).send({items,total,})} 
+          else{
+            return res.status(401).send({message : "items not found"});
+          }
+   } catch (error) {
+      console.log(error);
+      return res.status(500).send({message : error.message});
+   }  
+});
 
 export default formRouter; 
