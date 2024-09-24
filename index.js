@@ -8,10 +8,21 @@ import {PORT , mongodbUrl} from "./config.js"
 
 const app = express();
 app.use(express.json());
-app.use(cors({
-    origin: ['http://localhost:3000','https://survey-form-one-kappa.vercel.app'],
-    credentials: true
-  }));
+
+
+
+app.use(
+cors({
+    origin: [
+    "http://localhost:3000",
+    "https://survey-form-one-kappa.vercel.app",
+    "http//consultya.barrana.com.au",
+    "https://consultya.barrana.com.au",
+    ],
+})
+);
+
+
 app.use('/', formRouter );
 
 
