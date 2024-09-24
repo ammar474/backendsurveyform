@@ -95,8 +95,8 @@ formRouter.post("/TenanTsurvey", async (req, res) => {
          email,
       }
       const addTenantSurveyData = new TenantSurvey(newtenantData);
-      await addTenantSurveyData.save();
-      res.status(200).send('Feedback submitted successfully');
+       const getTenanTsurvey = await addTenantSurveyData.save();
+      res.status(200).send({getTenanTsurvey });
    } catch (error) {
       res.status(500).send({message : error.message});
    }
