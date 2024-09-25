@@ -13,7 +13,7 @@ formRouter.post("/login", async (req, res) => {
    if (!email && !password) {
       return res.status(401).send({ message: "please fill the field" });
    }
-   if (email == "xyz@gmail.com" && password == "abc") {
+   if (email == "admin@alsheebani.com" && password == "123456") {
       const token = jwt.sign({}, JWT_SECRET, { expiresIn: '1h' });
       console.log(token);
       return res.status(201).send({ message: "login succesful", token: token });
