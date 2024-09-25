@@ -148,14 +148,17 @@ formRouter.get("/GetDetails/:id",  authenticationToken , async (req, res) => {
 
 formRouter.get("/ItemsClientSurvey" , authenticationToken ,  async (req , res ) => {
       
-         const page  = req.query.page;
-         const limit = req.query.limit;
+         const page  = req.query.page || 1;
+         const limit = req.query.limit || 1000;
          const skip = (page - 1) * limit;
          const searchQuery = req.query.name ;
 
          try {
               const query = searchQuery ? {name : { $regex: searchQuery, $options: 'i' }} : {};
-               const items = await ClientSurvey.find(query , { name : 1 , email: 1 , rating : 1 , created_at : 1 , companyName : 1  }).skip(skip).limit(limit);
+              const items = await ClientSurvey.find(query, { name: 1, email: 1, rating: 1, created_at: 1, companyName: 1 })
+              .sort({ created_at: -1 }) 
+              .skip(skip)
+              .limit(limit);
                const total = await ClientSurvey.countDocuments(query);
                if(items){ return  res.status(201).send({items,total,})} 
                 else{
@@ -169,14 +172,14 @@ formRouter.get("/ItemsClientSurvey" , authenticationToken ,  async (req , res ) 
 
 formRouter.get("/ItemsTenantSurvey" , authenticationToken , async (req , res ) => {
       
-   const page  = req.query.page;
-   const limit = req.query.limit;
+   const page  = req.query.page || 1;
+         const limit = req.query.limit || 1000;
    const skip = (page - 1) * limit;
    const searchQuery = req.query.name;
 
    try {
          const query = searchQuery ? {name : { $regex: searchQuery, $options: 'i' }} : {};
-         const items = await TenantSurvey.find(query , { name : 1 , email: 1 , rating : 1 , created_at : 1  }).skip(skip).limit(limit);
+         const items = await TenantSurvey.find(query , { name : 1 , email: 1 , rating : 1 , created_at : 1  }).sort({ created_at: -1 }).skip(skip).limit(limit);
          const total = await TenantSurvey.countDocuments(query);
          if(items){ return  res.status(201).send({items,total})} 
           else{
