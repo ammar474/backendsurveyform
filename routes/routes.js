@@ -157,8 +157,6 @@ formRouter.get("/ItemsClientSurvey" , authenticationToken ,  async (req , res ) 
               const query = searchQuery ? {name : { $regex: searchQuery, $options: 'i' }} : {};
               const items = await ClientSurvey.find(query, { name: 1, email: 1, rating: 1, created_at: 1, companyName: 1 })
               .sort({ _id: -1 }) 
-              .skip(skip)
-              .limit(limit);
                const total = await ClientSurvey.countDocuments(query);
                if(items){ return  res.status(201).send({items,total,})} 
                 else{
@@ -179,7 +177,7 @@ formRouter.get("/ItemsTenantSurvey" , authenticationToken , async (req , res ) =
 
    try {
          const query = searchQuery ? {name : { $regex: searchQuery, $options: 'i' }} : {};
-         const items = await TenantSurvey.find(query , { name : 1 , email: 1 , rating : 1 , created_at : 1  }).sort({ _id: -1 }).skip(skip).limit(limit);
+         const items = await TenantSurvey.find(query , { name : 1 , email: 1 , rating : 1 , created_at : 1  }).sort({ _id: -1 })
          const total = await TenantSurvey.countDocuments(query);
          if(items){ return  res.status(201).send({items,total})} 
           else{
