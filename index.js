@@ -16,7 +16,7 @@ cors({
     origin: [
     "http://localhost:3000",
     "https://survey-form-one-kappa.vercel.app",
-    "http//consultya.barrana.com.au",
+    "https://alsheebani.mangotech-apps.com",
     "https://consultya.barrana.com.au",
     ],
 })
