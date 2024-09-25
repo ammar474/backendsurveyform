@@ -108,7 +108,7 @@ formRouter.get("/GetDataClientSurvey", authenticationToken, async (req, res) => 
 
    try {
      
-      const data = await ClientSurvey.find();
+      const data = await ClientSurvey.find().sort({ _id: -1 });
       if (!data ) { return res.status(401).send({ message: "data not found" }) }
       else {
          res.status(201).send({ clientSurvey: data })
@@ -121,7 +121,7 @@ formRouter.get("/GetDataClientSurvey", authenticationToken, async (req, res) => 
 formRouter.get("/GetDataTenantSurvey", authenticationToken, async (req, res) => {
 
    try {
-      const tenantData = await TenantSurvey.find();
+      const tenantData = await TenantSurvey.find().sort({ _id: -1 });
 
       if (!tenantData) { return res.status(401).send({ message: "data not found" }) }
       else {
